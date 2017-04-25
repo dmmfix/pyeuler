@@ -69,3 +69,41 @@ def divisors(f):
 def proper_div(n):
     d = divisors(factors_cache(n))
     return d[:-1]
+
+def next_perm(s):
+    for x in range(len(s)-2, -1, -1):
+        if s[x] < s[x+1]:
+            sy = x+1
+            for y in range(x+2,len(s)):
+                if s[y] > s[x] and s[y] < s[sy]:
+                    sy = y
+            s[sy],s[x] = s[x],s[sy]
+            s[x+1:] = sorted(s[x+1:])
+            return s
+    return None
+
+def num_from_digits(d):
+    f = 1
+    s = 0
+    for x in d:
+        s += x*f
+        f *= 10
+    return s
+
+def perms(s):
+    s = sorted(s)
+    while s:
+        yield s
+        s = next_perm(s)
+
+def is_pal(x, base=10):
+    if base == 10:
+        str = '{:d}'.format(x)
+    elif base == 2:
+        str = '{:b}'.format(x)
+    elif base == 16:
+        str = '{:x}'.format(x)
+    else:
+        raise('Invalid base')
+    return str == str[::-1]
+        
