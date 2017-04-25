@@ -24,6 +24,17 @@ def digits(x):
 #        factors.append(cn)
 #    return factors
 
+def sieve(n):
+    prime = [0, 1] * (n/2)
+    prime[1] = 0
+    prime[2] = 1
+    for x in range(3,n):
+        if prime[x] != 0:
+            for m in range(2*x,n,x):
+                prime[m] = 0
+    return prime
+    
+
 FactorCache = {1:[]}
 def factors_cache(n, start=2):
     global FactorCache
