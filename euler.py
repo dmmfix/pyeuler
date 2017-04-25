@@ -23,3 +23,25 @@ def factors(n):
     if (cn != 1):
         factors.append(cn)
     return factors
+
+def divisors(f):
+    x = 0
+    d = [1]
+    prod = 1
+    for perm in range(0,1 << len(f)):
+        for pos in range(0, len(f)):
+            if (x & (1 << pos)):
+                x &= ~(1 << pos)
+                prod /= f[pos]
+            else:
+                x |= (1 << pos)
+                prod *= f[pos]
+                break
+        if (not prod in d):
+            d.append(prod)
+    return d
+
+def proper_div(n):
+    d = divisors(factors(n))
+    return d[:-1]
+
