@@ -33,7 +33,7 @@ def sieve(n):
             for m in range(2*x,n,x):
                 prime[m] = 0
     return prime
-    
+
 
 FactorCache = {1:[]}
 def factors_cache(n, start=2):
@@ -67,4 +67,3 @@ def divisors(f):
 def proper_div(n):
     d = divisors(factors_cache(n))
     return d[:-1]
-
