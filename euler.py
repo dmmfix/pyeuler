@@ -4,8 +4,10 @@ def digits(x):
     d = []
     while x > 0:
         d.append(x % 10)
-        x /= 10
+        x //= 10
     return d
+
+
 
 #def factors(n):
 #    sn = sqrt(n)
@@ -25,7 +27,7 @@ def digits(x):
 #    return factors
 
 def sieve(n):
-    prime = [0, 1] * (n/2)
+    prime = [0, 1] * (n//2)
     prime[1] = 0
     prime[2] = 1
     for x in range(3,n):
@@ -55,7 +57,7 @@ def divisors(f):
         for pos in range(0, len(f)):
             if (x & (1 << pos)):
                 x &= ~(1 << pos)
-                prod /= f[pos]
+                prod //= f[pos]
             else:
                 x |= (1 << pos)
                 prod *= f[pos]
