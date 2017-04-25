@@ -7,7 +7,7 @@ def scorename(pos, name):
         score += ord(x) - ord('A') + 1
     return score * pos
 
-names = sorted(map(lambda x: x.strip('"'), open('data/p022_names.txt').read().split(',')))
+names = sorted(euler.read_names('data/p022_names.txt'))
 
 total = 0
 for x in range(0, len(names)):

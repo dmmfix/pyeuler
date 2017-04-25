@@ -91,7 +91,9 @@ def is_pal(x, base=10):
     else:
         raise('Invalid base')
     return str == str[::-1]
-        
+
+def read_words(fn):
+    return map(lambda x: x.strip('"'), open(fn).read().split(','))
 
 #def factors(n):
 #    sn = sqrt(n)
