@@ -1,4 +1,5 @@
 from math import sqrt,ceil
+import operator
 
 def digits(x):
     d = []
@@ -6,25 +7,6 @@ def digits(x):
         d.append(x % 10)
         x //= 10
     return d
-
-
-
-#def factors(n):
-#    sn = sqrt(n)
-#    factors = []
-#    total_product = 1
-#    cn = n
-#    x = 2
-#    while total_product != n and x <= sn:
-#        if (cn % x) == 0:
-#            factors.append(x)
-#            total_product *= x
-#            cn /= x
-#        else:
-#            x += 1
-#    if (cn != 1):
-#        factors.append(cn)
-#    return factors
 
 def sieve(n):
     prime = [0, 1] * (n//2)
@@ -35,7 +17,6 @@ def sieve(n):
             for m in range(2*x,n,x):
                 prime[m] = 0
     return prime
-
 
 FactorCache = {1:[]}
 def factors_cache(n, start=2):
@@ -48,6 +29,11 @@ def factors_cache(n, start=2):
                 return FactorCache[n]
         FactorCache[n] = [n]
     return FactorCache[n]
+
+def is_prime(n):
+    if (n < 2):
+        return False
+    return len(factors_cache(n)) == 1
 
 def divisors(f):
     x = 0
@@ -70,15 +56,15 @@ def proper_div(n):
     d = divisors(factors_cache(n))
     return d[:-1]
 
-def next_perm(s):
+def next_perm(s, fCMP = cmp):
     for x in range(len(s)-2, -1, -1):
-        if s[x] < s[x+1]:
+        if fCMP(s[x], s[x+1]) < 0:
             sy = x+1
             for y in range(x+2,len(s)):
-                if s[y] > s[x] and s[y] < s[sy]:
+                if fCMP(s[y], s[x]) > 0 and fCMP(s[y], s[sy]) < 0:
                     sy = y
             s[sy],s[x] = s[x],s[sy]
-            s[x+1:] = sorted(s[x+1:])
+            s[x+1:] = sorted(s[x+1:], cmp=fCMP)
             return s
     return None
 
@@ -90,11 +76,10 @@ def num_from_digits(d):
         f *= 10
     return s
 
-def perms(s):
-    s = sorted(s)
+def perms(s, rev=False):
     while s:
         yield s
-        s = next_perm(s)
+        s = next_perm(s) if not rev else next_perm(s, lambda x,y: -cmp(x,y))
 
 def is_pal(x, base=10):
     if base == 10:
@@ -107,3 +92,21 @@ def is_pal(x, base=10):
         raise('Invalid base')
     return str == str[::-1]
         
+
+#def factors(n):
+#    sn = sqrt(n)
+#    factors = []
+#    total_product = 1
+#    cn = n
+#    x = 2
+#    while total_product != n and x <= sn:
+#        if (cn % x) == 0:
+#            factors.append(x)
+#            total_product *= x
+#            cn /= x
+#        else:
+#            x += 1
+#    if (cn != 1):
+#        factors.append(cn)
+#    return factors
+
