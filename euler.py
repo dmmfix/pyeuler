@@ -30,6 +30,9 @@ def factors_cache(n, start=2):
         FactorCache[n] = [n]
     return FactorCache[n]
 
+def factors(n):
+    return factors_cache(n)
+
 def is_prime(n):
     if (n < 2):
         return False
@@ -94,21 +97,4 @@ def is_pal(x, base=10):
 
 def read_words(fn):
     return map(lambda x: x.strip('"'), open(fn).read().split(','))
-
-#def factors(n):
-#    sn = sqrt(n)
-#    factors = []
-#    total_product = 1
-#    cn = n
-#    x = 2
-#    while total_product != n and x <= sn:
-#        if (cn % x) == 0:
-#            factors.append(x)
-#            total_product *= x
-#            cn /= x
-#        else:
-#            x += 1
-#    if (cn != 1):
-#        factors.append(cn)
-#    return factors
 
