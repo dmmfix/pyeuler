@@ -38,6 +38,16 @@ def is_prime(n):
         return False
     return len(factors_cache(n)) == 1
 
+def primes(start=2):
+    s = sieve(10000)
+    p = start
+    while True:
+        while p < len(s):
+            if s[p]:
+                yield p
+            p += 1
+        s = sieve(len(s) * 10)
+
 def divisors(f):
     x = 0
     d = [1]
