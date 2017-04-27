@@ -98,3 +98,8 @@ def is_pal(x, base=10):
 def read_words(fn):
     return map(lambda x: x.strip('"'), open(fn).read().split(','))
 
+def read_matrix(fn):
+    m = []
+    for r in open(fn).readlines():
+        m.append(map(int, r.split(',')))
+    return m
